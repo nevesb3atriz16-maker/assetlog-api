@@ -27,9 +27,9 @@ namespace AssetLog.Api.Services.UserServices
             var users = await userRepository.GetUserById(userId, cancellationToken)
             ?? throw new KeyNotFoundException($"User with ID {userId} was not found.");
 
-            //var equipment = 
+            var equipment = await userRepository.GetEquipmentsByUserId(userId, cancellationToken);
+            return equipment.Select(MapToEquipmentDto).ToList();
 
-            return new List<EquipmentDto>();
 
         }
 
@@ -45,6 +45,17 @@ namespace AssetLog.Api.Services.UserServices
                 IsActive = user.IsActive,
                 EndDate = user.EndDate,
                 TypeOfContract = user.TypeOfContract
+            };
+        }
+
+        private static EquipmentDto MapToEquipmentDto(Equipment equipment)
+        {
+            return new EquipmentDto
+            {
+                Id = equipment.Id,
+                Name = equipment.Name,
+                Description = equipment.Description,
+                Category = equipment.Category
             };
         }
     }

@@ -28,6 +28,17 @@ public class UserController(IUserService userService) : ControllerBase
         return Ok(user);
     }
 
+    // GET /users/{id}/material-em-posse 
+    [HttpGet("{userId:int}/material-em-posse")]
+    public async Task<ActionResult<EquipmentDto>> GetEquipmentByUserId(
+        [FromRoute] int userId,
+        CancellationToken cancellationToken)
+    {
+        var equipment = await userService.GetEquipmentByUserId(userId);
+        return Ok(equipment);
+    }
+
+
 }
 
 
