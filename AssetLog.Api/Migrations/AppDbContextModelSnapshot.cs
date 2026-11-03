@@ -113,27 +113,6 @@ namespace AssetLog.Api.Migrations
                     b.ToTable("OrderItems");
                 });
 
-            modelBuilder.Entity("AssetLog.Api.Models.Stock", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("EquipmentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EquipmentId");
-
-                    b.ToTable("Stocks");
-                });
-
             modelBuilder.Entity("AssetLog.Api.Models.StockNotification", b =>
                 {
                     b.Property<int>("Id")
@@ -307,17 +286,6 @@ namespace AssetLog.Api.Migrations
                     b.Navigation("Equipment");
 
                     b.Navigation("Order");
-                });
-
-            modelBuilder.Entity("AssetLog.Api.Models.Stock", b =>
-                {
-                    b.HasOne("AssetLog.Api.Models.Equipment", "Equipment")
-                        .WithMany()
-                        .HasForeignKey("EquipmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Equipment");
                 });
 
             modelBuilder.Entity("AssetLog.Api.Models.StockNotification", b =>
