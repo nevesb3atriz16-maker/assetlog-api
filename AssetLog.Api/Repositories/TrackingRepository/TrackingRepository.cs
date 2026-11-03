@@ -69,4 +69,9 @@ public class TrackingRepository(AppDbContext db) : ITrackingRepository
             .OrderByDescending(t => t.Date)
             .ToListAsync(cancellationToken);
     }
+
+    public async Task AddTrackingAsync(Tracking tracking, CancellationToken cancellationToken = default)
+    {
+        await db.Trackings.AddAsync(tracking, cancellationToken);
+    }
 }

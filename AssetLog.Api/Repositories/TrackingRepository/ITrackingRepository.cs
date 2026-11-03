@@ -10,6 +10,7 @@ namespace AssetLog.Api.Repositories.TrackingRepository
         Task<List<Tracking>> GetTrackingsByOrderIdAsync(int orderId, CancellationToken cancellationToken = default);
         Task<Tracking?> GetTrackingByIdAsync(int trackingId, CancellationToken cancellationToken = default);
         Task<List<Tracking>> GetAllTrackingsAsync(CancellationToken cancellationToken = default);
-        
+        Task AddTrackingAsync(Tracking tracking, CancellationToken cancellationToken = default);
+
     }
 }

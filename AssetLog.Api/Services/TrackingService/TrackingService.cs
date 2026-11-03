@@ -10,34 +10,34 @@ namespace AssetLog.Api.Services.TrackingService
         public async Task<List<TrackingDto>> GetApproverTrackingsAsync(int approverId, CancellationToken cancellationToken = default)
         {
             var trackings = await trackingRepository.GetApproverTrackingsAsync(approverId, cancellationToken);
-            return trackings.Select(MapToDto).ToList();
+            return trackings.Select(MapToTrackingDto).ToList();
         }
 
         public async Task<List<TrackingDto>> GetTrackingsByStatusAsync(StatusEnum status, CancellationToken cancellationToken = default)
         {
             var trackings = await trackingRepository.GetTrackingsByStatusAsync(status, cancellationToken);
-            return trackings.Select(MapToDto).ToList();
+            return trackings.Select(MapToTrackingDto).ToList();
         }
 
         public async Task<List<TrackingDto>> GetTrackingsByOrderIdAsync(int orderId, CancellationToken cancellationToken = default)
         {
             var trackings = await trackingRepository.GetTrackingsByOrderIdAsync(orderId, cancellationToken);
-            return trackings.Select(MapToDto).ToList();
+            return trackings.Select(MapToTrackingDto).ToList();
         }
 
         public async Task<TrackingDto?> GetTrackingByIdAsync(int trackingId, CancellationToken cancellationToken = default)
         {
             var tracking = await trackingRepository.GetTrackingByIdAsync(trackingId, cancellationToken);
-            return tracking is null ? null : MapToDto(tracking);
+            return tracking is null ? null : MapToTrackingDto(tracking);
         }
 
         public async Task<List<TrackingDto>> GetAllTrackingsAsync(CancellationToken cancellationToken = default)
         {
             var trackings = await trackingRepository.GetAllTrackingsAsync(cancellationToken);
-            return trackings.Select(MapToDto).ToList();
+            return trackings.Select(MapToTrackingDto).ToList();
         }
 
-        private static TrackingDto MapToDto(Tracking tracking)
+        private static TrackingDto MapToTrackingDto(Tracking tracking)
         {
             return new TrackingDto
             {

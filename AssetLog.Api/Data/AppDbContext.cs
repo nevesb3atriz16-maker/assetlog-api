@@ -1,4 +1,4 @@
-﻿using AssetLog.Api.Models;
+using AssetLog.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace AssetLog.Api.Data;
@@ -32,9 +32,10 @@ public class AppDbContext : DbContext
             .HasOne(o => o.Approver)
             .WithMany()
             .HasForeignKey(o => o.ApproverId)
+            .IsRequired(false)
             .OnDelete(DeleteBehavior.Restrict);
 
-         modelBuilder.Entity<Tracking>()
+        modelBuilder.Entity<Tracking>()
             .HasOne(t => t.TrackingNotification)
             .WithOne(tn => tn.Tracking)
             .HasForeignKey<TrackingNotification>(tn => tn.TrackingId);
