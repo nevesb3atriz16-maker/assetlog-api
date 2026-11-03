@@ -73,11 +73,6 @@ namespace AssetLog.Api.Repositories.OrderRepository
             await db.Orders.AddAsync(order, cancellationToken);
         }
 
-        public async Task AddTrackingAsync(Tracking tracking, CancellationToken cancellationToken = default)
-        {
-            await db.Trackings.AddAsync(tracking, cancellationToken);
-        }
-
         public async Task AddStockNotificationAsync(StockNotification stockNotification, CancellationToken cancellationToken = default)
         {
             await db.StockNotifications.AddAsync(stockNotification, cancellationToken);

@@ -1,8 +1,10 @@
 using System.Text.Json.Serialization;
 using AssetLog.Api.Data;
-using AssetLog.Api.Repositories.OrderRepository;
-using AssetLog.Api.Services.OrderService;
 using Microsoft.EntityFrameworkCore;
+using AssetLog.Api.Repositories.TrackingRepository;
+using AssetLog.Api.Services.OrderService;
+using AssetLog.Api.Services.TrackingService;
+using AssetLog.Api.Repositories.OrderRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<ITrackingRepository, TrackingRepository>();
+builder.Services.AddScoped<ITrackingService, TrackingService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -2,10 +2,11 @@ using AssetLog.Api.DTOs;
 using AssetLog.Api.Models;
 using AssetLog.Api.Models.Enums;
 using AssetLog.Api.Repositories.OrderRepository;
+using AssetLog.Api.Repositories.TrackingRepository;
 
 namespace AssetLog.Api.Services.OrderService
 {
-    public class OrderService(IOrderRepository orderRepository) : IOrderService
+    public class OrderService(IOrderRepository orderRepository, ITrackingRepository trackingRepository) : IOrderService
     {
         public async Task<List<OrderSummaryDto>> GetUserOrdersAsync(int userId, CancellationToken cancellationToken = default)
         {
@@ -189,7 +190,7 @@ namespace AssetLog.Api.Services.OrderService
                 }
             };
 
-            await orderRepository.AddTrackingAsync(tracking, cancellationToken);
+            await trackingRepository.AddTrackingAsync(tracking, cancellationToken);
             await orderRepository.SaveChangesAsync(cancellationToken);
 
             tracking.TrackingNotificationId = tracking.TrackingNotification.Id;
@@ -233,7 +234,7 @@ namespace AssetLog.Api.Services.OrderService
                 }
             };
 
-            await orderRepository.AddTrackingAsync(tracking, cancellationToken);
+            await trackingRepository.AddTrackingAsync(tracking, cancellationToken);
             await orderRepository.SaveChangesAsync(cancellationToken);
 
             tracking.TrackingNotificationId = tracking.TrackingNotification.Id;
