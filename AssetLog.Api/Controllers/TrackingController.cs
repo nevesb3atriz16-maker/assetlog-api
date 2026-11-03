@@ -12,14 +12,14 @@ public class TrackingController(ITrackingService trackingService) : ControllerBa
 {
 
     [HttpGet]
-    public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetAllTrackings(CancellationToken cancellationToken)
     {
         var result = await trackingService.GetAllTrackingsAsync(cancellationToken);
         return Ok(result);
     }
 
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetById([Range(1, int.MaxValue)] int id, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetByTrackingId([Range(1, int.MaxValue)] int id, CancellationToken cancellationToken)
     {
         var result = await trackingService.GetTrackingByIdAsync(id, cancellationToken);
         if (result == null) return NotFound();
@@ -28,7 +28,7 @@ public class TrackingController(ITrackingService trackingService) : ControllerBa
     }
 
     [HttpGet("order/{orderId:int}")]
-    public async Task<IActionResult> GetByOrderId([Range(1, int.MaxValue)] int orderId, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetTrackingsByOrderId([Range(1, int.MaxValue)] int orderId, CancellationToken cancellationToken)
     {
         var result = await trackingService.GetTrackingsByOrderIdAsync(orderId, cancellationToken);
         return Ok(result);
