@@ -12,8 +12,6 @@ namespace AssetLog.Api.Models
         public int MinStock { get; set; }
         public int Stock { get; set; }
 
-        //TODO: add foreign keys and navigations
-        //run migrations
         public List<OrderItem> OrderItems { get; set; } = new();
         public List<StockNotification> StockNotifications { get; set; } = new();
     }
