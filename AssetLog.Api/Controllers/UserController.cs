@@ -31,7 +31,7 @@ public class UsersController(IUserService userService) : ControllerBase
         CancellationToken cancellationToken)
     {
         var userNameIdentifier = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (int.TryParse(userNameIdentifier, out int id))
+        if (int.TryParse(userNameIdentifier, out int id) == false)
             return NotFound();
 
         var users = await userService.GetUsersById(id);
@@ -48,13 +48,19 @@ public class UsersController(IUserService userService) : ControllerBase
         return Ok(user);
     }
 
-    // GET /users/{id}/material-em-posse 
-    [HttpGet("{userId:int}/material-em-posse")]
+    // GET /users/me/material-em-posse 
+    [HttpGet("me/material-em-posse")]
+    [Authorize()]
+    [AllowAnonymous]
     public async Task<ActionResult<EquipmentDto>> GetEquipmentByUserId(
-        [FromRoute] int userId,
         CancellationToken cancellationToken)
     {
-        var equipment = await userService.GetEquipmentByUserId(userId);
+        var userNameIdentifier = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (int.TryParse(userNameIdentifier, out int id) == false)
+            return NotFound();
+
+        
+        var equipment = await userService.GetEquipmentByUserId(id);
         return Ok(equipment);
     }
 
