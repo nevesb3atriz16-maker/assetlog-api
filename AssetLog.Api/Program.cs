@@ -1,7 +1,10 @@
-using Microsoft.EntityFrameworkCore;
 using AssetLog.Api.Data;
+using AssetLog.Api.Repositories.OrderRepository;
+using AssetLog.Api.Repositories.TrackingRepository;
 using AssetLog.Api.Repositories.UserRepository;
 using AssetLog.Api.Services;
+using AssetLog.Api.Services.OrderService;
+using AssetLog.Api.Services.TrackingService;
 using AssetLog.Api.Services.UserServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -9,11 +12,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using System.Text;
 using System.Text.Json.Serialization;
-using Microsoft.EntityFrameworkCore;
-using AssetLog.Api.Repositories.TrackingRepository;
-using AssetLog.Api.Services.OrderService;
-using AssetLog.Api.Services.TrackingService;
-using AssetLog.Api.Repositories.OrderRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +27,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddTransient<IUserService,UserService>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
-
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<ITrackingRepository, TrackingRepository>();
+builder.Services.AddScoped<ITrackingService, TrackingService>();
 builder.Services.AddScoped<TokenService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -65,13 +66,6 @@ builder.Services.AddSwaggerGen(c =>
         [new OpenApiSecuritySchemeReference("Bearer", document)] = []
     });
 });
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddScoped<ITrackingRepository, TrackingRepository>();
-builder.Services.AddScoped<ITrackingService, TrackingService>();
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
