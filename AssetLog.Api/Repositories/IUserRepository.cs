@@ -8,6 +8,7 @@ namespace AssetLog.Api.Repositories.UserRepository
         Task DeleteUser(int userId);
         Task<List<User>> GetAllUsers(CancellationToken cancellationToken = default);
         Task<List<Equipment>> GetEquipmentsByUserId(int userId, CancellationToken cancellationToken = default);
+        Task<User?> GetUserByEmail(string email, CancellationToken cancellationToken = default);
         Task<User?> GetUserById(int userId, CancellationToken cancellationToken = default);
         Task SaveChangesAsync(CancellationToken cancellationToken = default);
     }

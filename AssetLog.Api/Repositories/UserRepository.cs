@@ -26,6 +26,11 @@ namespace AssetLog.Api.Repositories.UserRepository
             return users.Entity;
         }
 
+        public async Task<User?> GetUserByEmail(string email, CancellationToken cancellationToken = default)
+        {
+            return await db.Users.FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
+        }
+
         public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             await db.SaveChangesAsync(cancellationToken);
@@ -50,8 +55,8 @@ namespace AssetLog.Api.Repositories.UserRepository
                                 .Where(o => o.UserId == userId && (o.Status == StatusEnum.APPROVED || o.Status == StatusEnum.ONGOING))
                                 .SelectMany(x => x.OrderItems.Select(e => e.Equipment));
 
-           
-            return equipment.ToList();   
+
+            return equipment.ToList();
 
         }
     }
